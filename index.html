@@ -140,6 +140,46 @@ section h2 { font-size: 13px; font-weight: 600; color: var(--soft); margin: 0 0 
 }
 #dl:disabled { opacity: .5; cursor: default; }
 .foot { font-size: 12px; color: var(--soft); line-height: 1.7; margin: 0; }
+.main, .side { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+
+/* Wide screens: word on the left, settings and history on the right */
+@media (min-width: 900px) {
+  .wrap {
+    max-width: 1240px; padding-block: 40px 64px;
+    display: grid; grid-template-columns: minmax(0, 1fr) clamp(300px, 28vw, 380px);
+    column-gap: clamp(40px, 5vw, 88px); row-gap: 28px; align-items: start;
+  }
+  h1 { grid-column: 1 / -1; font-size: 16px; }
+  .main { gap: 32px; }
+  .side {
+    position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px);
+    gap: 28px; padding-left: clamp(28px, 3vw, 48px); border-left: 1px solid var(--line);
+  }
+  .field { height: 64px; border-radius: 16px; padding-left: 22px; }
+  #word { font-size: 24px; }
+  #speak { width: 64px; height: 64px; }
+  #speak svg { width: 28px; height: 28px; }
+  .suggest { top: 70px; right: 74px; }
+  .suggest button { font-size: 19px; padding: 12px 22px; }
+  .card { padding-top: 36px; gap: 26px; }
+  #headword { font-size: clamp(56px, 6.4vw, 104px); letter-spacing: -0.035em; }
+  .lemma { font-size: 16px; }
+  .prons { flex-direction: column; gap: 14px; }
+  .pron { font-size: clamp(26px, 2.4vw, 34px); gap: 14px; }
+  .pron .tag { width: 34px; height: 34px; font-size: 15px; }
+  .pron .ipa.none { font-size: 18px; }
+  .pron svg { width: 20px; height: 20px; }
+  .defs { gap: 14px; }
+  .defs li { font-size: clamp(19px, 1.6vw, 23px); grid-template-columns: 4em 1fr; }
+  .defs .pos { font-size: 15px; padding-top: 5px; }
+  .status { font-size: 17px; }
+  .controls { flex-direction: column; align-items: stretch; gap: 18px; padding: 0 0 24px; border-top: none; }
+  .ctl { justify-content: space-between; font-size: 14px; }
+  #rate { flex: 1; width: auto; min-width: 0; }
+}
+@media (min-width: 1500px) {
+  .wrap { max-width: 1400px; }
+}
 @media (hover: hover) {
   .chips button:hover { border-color: var(--ink); }
   .pron:hover .ipa { text-decoration: underline; text-underline-offset: 4px; }
@@ -156,6 +196,7 @@ section h2 { font-size: 13px; font-weight: 600; color: var(--soft); margin: 0 0 
 <div class="wrap">
   <h1>单词发音</h1>
 
+  <main class="main">
   <div class="searchbox">
     <form class="search" id="form" autocomplete="off">
       <div class="field">
@@ -176,7 +217,9 @@ section h2 { font-size: 13px; font-weight: 600; color: var(--soft); margin: 0 0 
     <ul class="defs" id="defs"></ul>
     <p class="status" id="status">正在查词典…</p>
   </article>
+  </main>
 
+  <aside class="side">
   <div class="controls">
     <div class="ctl">朗读口音
       <div class="seg" role="group" aria-label="朗读口音">
@@ -203,6 +246,7 @@ section h2 { font-size: 13px; font-weight: 600; color: var(--soft); margin: 0 0 
   </section>
 
   <p class="foot">词典收录约 80 万个英文单词和短语。中文释义和英式音标来自开源词典 ECDICT（MIT 许可），美式音标由卡内基梅隆大学发音词典 CMUdict（BSD 许可）转写。发音使用设备自带的语音，iPhone 可以在「设置 › 辅助功能 › 朗读内容 › 声音 › 英语」里下载更自然的语音。在 Safari 里点「分享 › 添加到主屏幕」，就能像 App 一样从桌面打开。</p>
+  </aside>
 </div>
 
 <script>

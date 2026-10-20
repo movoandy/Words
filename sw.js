@@ -1,5 +1,5 @@
 // 离线缓存：页面本体预先缓存；词典分片查到哪块存哪块，也可以在页面上一次性下载全部
-const SHELL = 'shell-v2';
+const SHELL = 'shell-v3';
 const DICT = 'dict-v2';
 const SHELL_FILES = ['./', './index.html', './manifest.json', './top.json', './icon-180.png', './icon-192.png', './icon-512.png'];
 
